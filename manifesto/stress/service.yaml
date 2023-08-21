@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stress-service
+  namespace: skills
+spec:
+  selector:
+    app: stress
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

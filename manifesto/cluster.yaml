@@ -1,0 +1,74 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: skills-cluster
+  region: ap-northeast-2
+
+iam:
+  withOIDC: true
+
+vpc:
+  subnets:
+    public:
+      ap-northeast-2a:
+        id: subnet-09b8274e920cadb75
+      ap-northeast-2b:
+        id: subnet-015691521dcfce2bf
+      ap-northeast-2c:
+        id: subnet-07ec914360f6cfbfb
+    private:
+      ap-northeast-2a:
+        id: subnet-014b7be194aa7b8d1
+      ap-northeast-2b:
+        id: subnet-046504fc156d9cee2
+      ap-northeast-2c:
+        id: subnet-006af557a7a5704bb
+
+managedNodeGroups:
+  - name: skills-app
+    minSize: 2
+    desiredCapacity: 2
+    maxSize: 16
+    labels:
+      skills/dedicated: app
+    instanceType: c5.large
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        appMesh: true
+        appMeshPreview: true
+        ebs: true
+        fsx: true
+        efs: true
+        awsLoadBalancerController: true
+        xRay: true
+        cloudWatch: true
+  - name: skills-addon
+    labels:
+      skills/dedicated: addon
+    instanceType: c5.large
+    desiredCapacity: 2
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        appMesh: true
+        appMeshPreview: true
+        ebs: true
+        fsx: true
+        efs: true
+        awsLoadBalancerController: true
+        xRay: true
+        cloudWatch: true
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]

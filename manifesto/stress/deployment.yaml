@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: skills
+  name: stress
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: stress
+  template:
+    metadata:
+      labels:
+        app: stress
+        skills/version: v1
+    spec:
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        skills/dedicated: app
+      containers:
+      - name: stress
+        image: 790946953677.dkr.ecr.ap-northeast-2.amazonaws.com/stress-ecr:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m

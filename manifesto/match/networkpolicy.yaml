@@ -1,0 +1,38 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: deny-all-match
+  namespace: skills
+spec:
+  podSelector:
+    matchLabels:
+      app: match
+  policyTypes:
+    - Egress
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-internet-match
+  namespace: skills
+spec:
+  podSelector:
+    matchLabels:
+      app: match
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: "0.0.0.0/0"
+        except:
+        - "10.0.0.0/8"
+        - "192.168.0.0/16"
+        - "172.16.0.0/20"
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: "kube-system"
+    - podSelector:
+        matchLabels:
+          k8s-app: "kube-dns"
