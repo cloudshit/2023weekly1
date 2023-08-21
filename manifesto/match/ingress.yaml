@@ -6,9 +6,9 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/load-balancer-name: match-alb
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/subnets: subnet-09b8274e920cadb75,subnet-015691521dcfce2bf,subnet-07ec914360f6cfbfb
+    alb.ingress.kubernetes.io/subnets: subnet-005c6296e6327432d,subnet-083db9e20d86f7d04,subnet-0e2c368894d9d61c7
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/security-groups: sg-030f1405694207c33
+    alb.ingress.kubernetes.io/security-groups: sg-04f2b91b4c42a541d
     alb.ingress.kubernetes.io/healthcheck-path: /health
     alb.ingress.kubernetes.io/healthcheck-interval-seconds: "5"
     alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "2"
